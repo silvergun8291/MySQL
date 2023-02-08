@@ -267,4 +267,22 @@ SELECT
 FROM
     users
     JOIN photos ON users.id = photos.user_id
-GROUP BY users.id;
+GROUP BY
+    users.id;
+
+SELECT
+    username,
+    COUNT(*) AS num_likes
+FROM
+    users
+    INNER JOIN likes ON users.id = likes.user_id
+GROUP BY
+    likes.user_id
+HAVING
+    num_likes = (
+        SELECT
+            COUNT(*)
+        FROM
+            photos
+    );
+
